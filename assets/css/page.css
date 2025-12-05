@@ -1,0 +1,419 @@
+:root{
+	--bg: #111827;
+	--panel: #1f2937;
+	--line: #374151;
+	--text: #f9fafb;
+	--muted: #9ca3af;
+	--primary: #6366f1;
+	--hover: #374151;
+	--primeHover: #3B6161;
+  --alert-text: #a42834;
+  --alert-bg:#f8d7da;
+  --success-text: #073b11;
+  --success-bg:#b1e8c1;
+  --header-height: 88px;
+  --input-border-radius:12px;
+  --container-border-radius:12px;
+	--dashboard-max-width: 800px; /* overall max width for dashboard grid */
+  --button-border-radius:8px;
+	
+}
+
+body {
+  display: block;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  height: 100%;
+  background: url('../assets/images/clouds_STDB.png') no-repeat;
+  background-size: cover;
+  background-position: center;
+  font: 16px 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--text);
+  margin: 0;
+  padding:0;
+}
+.hidden {
+  display: none;
+}
+header {
+	display:flex;
+	align-items:center;
+	justify-content:space-between;
+	padding:12px 16px;
+	border-radius: var(--container-border-radius);
+}
+
+/*Top nav with dropdown option*/
+.topNav{
+	position: relative;
+	display: inline-block;
+}
+.headerNav-content {
+	display: none;
+	position: absolute;
+	right:0;
+	background-color: var(--panel);
+	color: var(--muted);
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
+	padding: 10px 8px;
+}
+.headerNav-content.btn{
+	display:block; 
+	width:100%;
+	padding:10px 12px;
+	margin:0;
+	text-align:left;
+	text-decoration:none;
+	color:var(--text);
+	border-radius:0;
+	background:none;
+	border:none;
+	cursor: pointer;
+}
+.headerNav-content.btn:hover{
+	background:var(--hover);
+	color:var(--text);
+}
+.headerNav:hover .headerNav-content {
+	display:block;
+}
+h2 {
+    font-size: 34px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+p {
+    font-size: 18px;
+    
+}
+
+.app {
+	display:flex;
+}
+nav {
+	width:220px; 
+	padding:12px;
+}
+nav a {
+	display:block; 
+	padding:10px 12px;
+	margin:6px 0;
+	text-decoration:none;
+	color:var(--text);
+	border-radius:var(--container-border-radius);
+}
+nav a.active {
+	background:var(--hover);
+}
+
+nav a.hover:hover {
+  background:var(--bg);
+}
+
+main {
+	flex:1;
+	padding:16px;
+}
+.card { 
+	background: rgba(17, 24, 39, 0.35);
+  border: 2px solid var(--line);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+  border-radius: var(--container-border-radius);
+	padding:16px;
+	margin-bottom:16px;
+}
+/* Toolbar responsive layout for search + add button */
+.toolbar {
+	display: flex;
+	gap: 12px;
+	align-items: center;
+	flex-wrap: nowrap;
+}
+
+.toolbar .input {
+	flex: 1 1 auto;
+	min-width: 120px;
+  border-radius: var(--input-border-radius);
+}
+
+table { 
+	table-layout:auto;
+	width:100%;
+	border-collapse:collapse;
+}
+th, td {
+	padding:10px 8px;
+	border-bottom: 1px solid var(--line);
+	text-align:left;
+	
+}
+.select-location.selected { 
+	outline: 2px solid #3b82f6; 
+	background: #eef6ff; 
+}
+
+main a{
+  color:var(--primary);
+  text-decoration:none;
+}
+.btn {
+  text-decoration:none;
+	padding:8px 12px;
+	border:1px solid var(--line);
+	background:#374151;
+	border-radius: var(--button-border-radius);
+	cursor:pointer;
+	color:var(--text);
+}
+.btn.primary {
+	background:var(--primary);
+	color:white;
+	border-color:var(--primary);
+}
+
+.btn:hover {
+    background: var(--bg);
+}
+.btn.primary:hover {
+	background: none;
+}
+.input, select, textarea {
+	width: 100%;
+	padding:8px 10px;
+	border:1px solid var(--line);
+	border-radius:var(--input-border-radius);
+	box-sizing: border-box;
+	background:#111827;
+	color:var(--text);
+}
+
+.save{
+  text-decoration:none;
+	padding:8px 12px;
+	border:1px solid var(--line);
+	background:var(--success-bg);
+	border-radius: var(--button-border-radius);
+	cursor:pointer;
+	color:var(--success-text);
+  display:none;
+
+}
+.save.active {
+  display:block;
+}
+.save.active:hover{
+  background: #3B6161;
+  color: var(--text);
+}
+
+.fixed-label {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100px;
+	text-align: right;
+	padding-right: 15px;
+	line-height: 2.25rem;
+	font-weight: bold;
+	color: var(--text);
+}
+
+/*toolbar & search*/
+.toolbar {
+	display:flex;
+	align-items:center;
+	gap: 12px;
+	flex-wrap: wrap;
+}
+.toolbar .input {
+	flex: 1 1 200px;
+}
+.toolbar .btn {
+	flex: 0 0 auto;
+}
+
+/*Top nav with dropdown option*/
+.topNav{
+	position: relative;
+	display: inline-block;
+}
+.headerNav-content {
+	display: none;
+	position: absolute;
+	right:0;
+	background-color: var(--panel);
+	color: var(--muted);
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
+	padding: 10px 8px;
+}
+.headerNav-content.btn{
+	display:block; 
+	width:100%;
+	padding:10px 12px;
+	margin:0;
+	text-align:left;
+	text-decoration:none;
+	color:var(--text);
+	border-radius:0;
+	background:none;
+	border:none;
+	cursor: pointer;
+}
+.headerNav-content.btn:hover{
+	background:var(--hover);
+	color:var(--text);
+
+}
+.headerNav:hover .headerNav-content {
+	display:block;
+}
+
+/* Dashboard grid layout */
+.two-column-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: auto auto auto;
+	gap: 16px;
+	align-items: start;
+}
+.two-column-grid .grid-item {
+	padding: 16px;
+	
+}
+.two-column-grid .header {
+	grid-column: 1 / -1; /* span both columns */
+}
+.two-column-grid .box-a { grid-column: 1; }
+.two-column-grid .box-b { grid-column: 2; }
+
+
+.three-column-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+.three-column-grid .grid-item {
+	padding: 16px;
+	
+}
+.three-column-grid .header {
+	grid-column: 1 / -1; /* span both columns */
+}
+.three-column-grid .box-a { grid-column: 1 / span 2; }
+.three-column-grid .box-b { grid-column: span 1; }
+.three-column-grid .box-c { grid-column: 1 / span 1; }
+.three-column-grid .box-d { grid-column: 2 / span 2; }
+.three-column-grid .box-e { grid-column: 1; }
+.three-column-grid .box-f { grid-column: 2; }
+.three-column-grid .box-g { grid-column: 3; }
+
+
+
+/* Error and Success Messages */
+.error-message {
+    padding: 12px;
+    background: #f8d7da;
+    border-radius: var(--container-border-radius);
+    font-size: 16px;
+    color: #a42834;
+    text-align: center;
+    margin-bottom: 20px;
+	/*max-width: 450px;*/
+}
+.success-message {
+    padding: 12px;
+    background: #b1e8c1;
+    border-radius: var(--container-border-radius);
+    font-size: 16px;
+    color: #073b11;
+    text-align: center;
+    margin-bottom: 20px;
+	/*max-width: 450px;*/
+}
+
+/* Responsive: for smaller screens*/
+@media (max-width: 720px) {
+	/* stack the layout vertically so nav moves on top */
+	/* make header stack: title above help/logout controls */
+	header {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 8px;
+		padding: 8px 12px;
+		box-sizing: border-box;
+	}
+	.headerNav {
+		/* keep the help/logout controls aligned to the right on small screens */
+		align-self: flex-end;
+		display: flex;
+		gap: 8px;
+	}
+
+	.app {
+		flex-direction: column;
+	}
+	nav {
+		width: 100%;
+		order: 0;
+		padding-left: 12px;
+		padding-right: 12px;
+		/* convert sidebar into a horizontal top nav */
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 8px;
+		background: rgba(17,24,39,0.45);
+		border-bottom: 1px solid var(--line);
+		overflow-x: auto;
+		padding-top: 8px;
+		padding-bottom: 8px;
+	}
+
+	/* nav links become inline pills */
+	nav a {
+		display: inline-flex;
+		white-space: nowrap;
+		padding: 8px 12px;
+		margin: 0 4px;
+		border-radius: var(--container-border-radius);
+		background: transparent;
+		border: 1px solid transparent;
+	}
+
+	nav a.active, nav a:hover {
+		background: var(--hover);
+		border-color: rgba(255,255,255,0.03);
+	}
+	/*main { order: 1; }*/
+
+	.dashboard-grid .three-column-grid {
+		grid-template-columns: 1fr;
+		grid-auto-rows: auto;
+		padding: 0 8px;
+	}
+	.dashboard-grid .three-column-grid .grid-item {
+		max-width: 100%;
+	}
+	.dashboard-grid .three-column-grid .header, .dashboard-grid .three-column-grid .box-a, .dashboard-grid .three-column-grid .box-b, .dashboard-grid .three-column-grid .box-c, .dashboard-grid .three-column-grid .box-d {
+		grid-column: auto;
+	}
+
+  
+	/* make h2 wrap nicely on small screens */
+	h2 {
+		font-size: 20px;
+		white-space: normal; /* allow wrapping */
+		overflow-wrap: break-word;
+		word-break: break-word;
+		line-height: 1.2;
+	}
+}
+
+

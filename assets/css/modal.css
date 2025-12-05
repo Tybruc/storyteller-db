@@ -1,0 +1,75 @@
+/* Container covers the viewport; hidden by default */
+.modal-wrapper {
+  position: fixed;
+  inset: 0;
+  display: none;            
+  background: rgba(0,0,0,.5);
+  padding: 24px;
+  z-index: 1000;
+  overflow: auto;
+}
+
+.modal-wrapper.open {
+  display: block;
+}
+
+/* Centered panel */
+.modal-content {
+  max-width:60%;
+  width:50%;
+  margin: auto;
+  background: var(--panel, #1f2937);
+  color: var(--text, #f9fafb);
+  border: 1px solid var(--line, #374151);
+  border-radius: var(--container-border-radius, 12px);
+  box-shadow: 0 10px 30px rgba(0,0,0,.4);
+  padding: 16px;
+}
+
+/* Close button (optional) */
+.modal-close-x {
+  position: absolute;
+  right: 12px; top: 8px;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* Modal action buttons */
+.modal-actions-center {
+  display:flex;
+  gap:8px;
+  justify-content:center;
+  margin-top:12px;
+}
+.modal-actions-right {
+  display:flex;
+  gap:8px;
+  justify-content:flex-end;
+  margin-top:12px;
+}
+
+/* Simple label | field alignment (grid) */
+.form-group {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  align-items: start;
+  gap: 12px;
+  margin: 12px 0;
+}
+.form-group label { text-align: right; color: var(--muted, #9ca3af); }
+.input, .form-group input, .form-group textarea {
+  width: 100%;
+  padding: 8px 10px;
+  background: var(--bg, #111827);
+  color: var(--text, #f9fafb);
+  border: 1px solid var(--line, #374151);
+  border-radius: var(--input-border-radius, 12px);
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+/* Stack on small screens */
+@media (max-width: 520px) {
+  .form-group { grid-template-columns: 1fr; }
+  .form-group label { text-align: left; }
+}

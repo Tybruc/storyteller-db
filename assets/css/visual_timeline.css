@@ -1,0 +1,235 @@
+/* Visual Timeline Styles - Vertical Center Line with Alternating Boxes */
+
+:root{
+	--bg: #111827;
+	--panel: #1f2937;
+	--line: #374151;
+	--text: #f9fafb;
+	--muted: #9ca3af;
+	--primary: #6366f1;
+	--hover: #374151;
+	--primeHover: #3B6161;
+  --alert-text: #a42834;
+  --alert-bg:#f8d7da;
+  --success-text: #073b11;
+  --success-bg:#b1e8c1;
+  --header-height: 88px;
+  --input-border-radius:12px;
+  --container-border-radius:12px;
+	--dashboard-max-width: 800px; /* overall max width for dashboard grid */
+  --button-border-radius:8px;
+	
+}
+
+.timeline-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.timeline-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.timeline-wrapper {
+  position: relative;
+  padding: 40px 0;
+}
+
+/* Center vertical line */
+.timeline-center-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--primary);
+  transform: translateX(-50%);
+  z-index: 0;
+}
+
+/* Container for all timeline items */
+.timeline-entries {
+  position: relative;
+  z-index: 1;
+}
+
+/* Individual timeline item */
+.timeline-item {
+  display: flex;
+  margin-bottom: 50px;
+  opacity: 0;
+  animation: slideIn 0.6s ease-out forwards;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Left positioned items */
+.timeline-left {
+  flex-direction: row-reverse;
+  padding-right: 52%;
+}
+
+.timeline-left .timeline-dot {
+  right: auto;
+  left: calc(50% - 8px);
+}
+
+.timeline-left .timeline-content {
+  text-align: right;
+  margin-right: 30px;
+}
+
+/* Right positioned items */
+.timeline-right {
+  flex-direction: row;
+  padding-left: 52%;
+}
+
+.timeline-right .timeline-dot {
+  left: calc(50% - 8px);
+}
+
+.timeline-right .timeline-content {
+  text-align: left;
+  margin-left: 30px;
+}
+
+/* Timeline dot (circle on center line) */
+.timeline-dot {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: white;
+  border: 3px solid var(--primary);
+  border-radius: 50%;
+  top: 0;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  transition: all 0.3s ease;
+}
+
+.timeline-left:hover .timeline-dot,
+.timeline-right:hover .timeline-dot {
+  border-color: var(--primeHover);
+  box-shadow: 0 0 0 6px rgba(59, 96, 97, 0.2);
+}
+
+/* Timeline content box */
+.timeline-content {
+  backdrop-filter: blur(20px);
+  background: rgba(17, 24, 39, 0.35);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  border-left: 4px solid var(--primary);
+  transition: all 0.3s ease;
+}
+
+.timeline-right .timeline-content {
+  border-left: 4px solid var(--primary);
+  border-right: none;
+}
+
+.timeline-left .timeline-content {
+  border-right: 4px solid var(--primary);
+  border-left: none;
+}
+
+.timeline-item:hover .timeline-content {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Type-specific styling */
+.timeline-type-event .timeline-content {
+  border-color: rgb(16, 167, 117);
+}
+
+.timeline-type-event .timeline-content .timeline-label {
+  color: var(--text);
+  background: #6bab96ff;
+}
+
+.timeline-type-plot .timeline-content {
+  border-color: rgb(33, 87, 167);
+}
+
+.timeline-type-plot .timeline-content .timeline-label {
+  color: var(--text);
+  background: #374d6fff;
+}
+
+/* Timeline label badge */
+.timeline-label {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.85em;
+  font-weight: 600;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Timeline title */
+.timeline-title {
+  font-size: 1.2em;
+  font-weight: 700;
+  margin: 8px 0;
+  color: var(--text);
+}
+
+/* Timeline summary */
+.timeline-summary {
+  color: var(--text);
+  font-size: 0.95em;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .timeline-wrapper {
+    padding: 20px 0;
+  }
+  
+  .timeline-item {
+    flex-direction: column !important;
+    padding: 0 !important;
+    margin-bottom: 40px;
+  }
+  
+  .timeline-center-line {
+    left: 20px;
+  }
+  
+  .timeline-dot {
+    position: static;
+    margin-bottom: 10px;
+    margin-left: 12px;
+  }
+  
+  .timeline-content {
+    margin: 0 !important;
+    margin-left: 50px !important;
+    text-align: left !important;
+    border-left: 4px solid #3b82f6 !important;
+    border-right: none !important;
+  }
+  
+  .timeline-label {
+    display: block;
+    margin-bottom: 8px;
+  }
+}

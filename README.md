@@ -1,8 +1,11 @@
 # Storyteller Database  
 *A multi-page PHP & MySQL web application for writers to organize and develop stories.*
 
-## Overview
-The **Storyteller Database** is a full-stack web application built as my Captone Project.  
+## U+1F393
+
+*Capstone project for my A.A.S in Web / Front-End Development at Red Rocks Community College*
+## 📚 Overview
+The **Storyteller Database** is a full-stack web application built as my .  
 It allows writers and content creators to manage the essential components of a story, including:
 
 - Stories  
@@ -15,7 +18,7 @@ The system provides a clean user interface for creating, updating, organizing, a
 
 ---
 
-## Technologies Used
+## 🛠 Technologies Used
 **Frontend**
 - HTML5, CSS3, JavaScript  
 - Modal-based CRUD UI  
@@ -71,7 +74,7 @@ The system provides a clean user interface for creating, updating, organizing, a
 - Sequence auto-updates after saving  
 - For plot points and events
 
-### Timeline (Advanced UI)
+### 📅 Timeline (Advanced UI)
 - Draggable row ordering  
 - Save Order button appears when changes detected  
 - Unsaved changes modal  
@@ -85,14 +88,13 @@ The system provides a clean user interface for creating, updating, organizing, a
 
 ---
 
-## Project Structure
+## 📂 Project Structure
 
 /public_html/storyteller/
 │── index.php
 │── includes/
 │ ├── data_functions.php
 │ ├── db_config.php
-│ ├── error_log.txt
 │ ├── footer.php
 │ ├── functions.php
 │ ├── header.php
@@ -170,7 +172,7 @@ See **storyteller-tables.sql** for full schema.
 
 ---
 
-## Installation / Deployment
+## 🔧 Installation / Deployment
 
 ### 1. Requirements
 - PHP 8+
@@ -196,7 +198,7 @@ Log in with a created account to begin.
 
 ---
 
-## Capstone Requirements Mapping
+## 🧪 Capstone Requirements Mapping
 This project demonstrates:
 
 - Full CRUD operations  
@@ -209,7 +211,7 @@ This project demonstrates:
 
 ---
 
-## Future Enhancements (Planned)
+## 📈 Future Enhancements (Planned)
 - REST API layer for SPA or mobile app version  
 - AI-assisted character / plot point generation  
 - Visual timeline view (Gantt-style)  
@@ -220,7 +222,7 @@ This project demonstrates:
 
 ---
 
-## Author
+## 🧑‍💻 Author
 **Ty Curneen**  
 Capstone Project – Computer Technology / Web Development  
 CIS2089551 Capstone - Prof Julie Schneider
@@ -228,6 +230,6 @@ Red Rocks Community College (2025)
 
 ---
 
-## License
+## 📜 License
 This project is licensed under the MIT License.  
 See the `LICENSE` file for details.

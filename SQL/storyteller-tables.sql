@@ -1,0 +1,149 @@
+/*  Storyteller Database Schema
+    --------------------------------------
+    This SQL script sets up the database schema for the Storyteller application.
+    It includes tables for users, stories, characters, locations, and timeline entries. 
+    Each table is designed for efficient data storage and retrieval, with appropriate
+    relationships and indexing to support the application's functionality.
+    Each users unique USER_ID is referenced in other tables to maintain data integrity.
+    --------------------------------------
+    Updated; November 2025
+    Changes:
+    1. TIMELINE Table creation and enhancements
+    - Renamed plot_points to TIMELINE for clarity. 
+    - Added ENTRY_TYPE to TIMELINE table to differentiate between plot points and events.
+    - Improved indexing on TIMELINE table for faster retrieval based on STORY_ID and SEQUENCE_NO.
+    2. TIMELINE_CHARACTERS Junction Table
+    - Created TIMELINE_CHARACTERS table to manage many-to-many relationships between timeline entries
+      and characters. This allows multiple characters to be associated with a single timeline entry.
+    3. Foreign Key Constraints
+    - Added foreign key constraints to ensure referential integrity between TIMELINE, CHARACTERS, and LOCATIONS tables. 
+    4. Added LAST_ACTIVITY column to STORIES table to track recent activity.
+*/
+-- Create the STORYTELLER database
+DROP DATABASE IF EXISTS TYCUXLHF_STORYTELLER;
+CREATE DATABASE TYCUXLHF_STORYTELLER
+	DEFAULT CHARACTER SET UTF8MB4;
+    
+USE TYCUXLHF_STORYTELLER;
+
+-- USERS TABLE
+-- Stores user information including roles and credentials
+CREATE TABLE USERS(
+	USER_ID 		    INT AUTO_INCREMENT PRIMARY KEY,
+    EMAIL			    VARCHAR(255) NOT NULL UNIQUE, 
+    FIRST_NAME    VARCHAR(100) NOT NULL,
+    LAST_NAME     VARCHAR(100) NOT NULL,
+    ROLE			    ENUM('AUTHOR','EDITOR','ADMIN') DEFAULT 'AUTHOR',
+    PASSWORD 		  VARCHAR(255) NOT NULL,
+    CREATED_AT 		TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=INNODB;
+
+-- STORIES TABLE
+-- Stores information about stories created by users
+CREATE TABLE STORIES(
+    STORY_ID   INT AUTO_INCREMENT PRIMARY KEY,
+    USER_ID    INT NOT NULL,
+    TITLE      VARCHAR(200) NOT NULL,
+    SYNOPSIS   TEXT,
+    GENRE      VARCHAR(100),
+    CREATED_AT TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UPDATED_AT TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    LAST_ACTIVITY TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT FK_STORIES_USER
+        FOREIGN KEY (USER_ID) REFERENCES USERS(USER_ID)
+        ON DELETE CASCADE
+) ENGINE=INNODB;
+
+CREATE INDEX IDX_STORIES_USER ON STORIES(USER_ID);
+
+-- CHARACTERS TABLE
+-- Stores characters associated with stories and users
+CREATE TABLE CHARACTERS(
+    CHARACTER_ID INT AUTO_INCREMENT PRIMARY KEY,
+    STORY_ID     INT NOT NULL,
+    USER_ID      INT NOT NULL,
+    NAME         VARCHAR(150) NOT NULL,
+    AGE          VARCHAR(50),
+    DESCRIPTION  TEXT,
+    NOTES        TEXT,
+    CREATED_AT   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UPDATED_AT   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT FK_CHARACTERS_STORY
+        FOREIGN KEY (STORY_ID) REFERENCES STORIES(STORY_ID)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    CONSTRAINT FK_CHARACTERS_USER
+        FOREIGN KEY (USER_ID) REFERENCES USERS(USER_ID)
+        ON DELETE CASCADE
+) ENGINE=INNODB;
+
+CREATE INDEX IDX_CHARACTERS_STORY ON CHARACTERS(STORY_ID);
+
+
+
+-- LOCATIONS TABLE
+-- Stores locations associated with stories and users
+CREATE TABLE LOCATIONS(
+    LOCATION_ID INT AUTO_INCREMENT PRIMARY KEY,
+    STORY_ID    INT NOT NULL,
+    USER_ID     INT NOT NULL,
+    NAME        VARCHAR(150) NOT NULL,
+    DESCRIPTION TEXT,
+    CREATED_AT  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UPDATED_AT  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    CONSTRAINT FK_LOCATIONS_STORY
+        FOREIGN KEY (STORY_ID) REFERENCES STORIES(STORY_ID)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    CONSTRAINT FK_LOCATIONS_USER
+        FOREIGN KEY (USER_ID) REFERENCES USERS(USER_ID)
+        ON DELETE CASCADE
+) ENGINE=INNODB;
+
+CREATE INDEX IDX_LOCATIONS_STORY ON LOCATIONS(STORY_ID);
+
+-- TIMELINE TABLE
+-- Stores timeline entries for stories, linking to characters and locations
+CREATE TABLE TIMELINE (
+    TIMELINE_ID     INT AUTO_INCREMENT PRIMARY KEY,
+    STORY_ID     INT NOT NULL,
+    USER_ID      INT NOT NULL,
+    TITLE        VARCHAR(200) NOT NULL,
+    SUMMARY      TEXT,
+    LOCATION_ID  INT NULL,
+    SEQUENCE_NO  INT NOT NULL,
+    ENTRY_TYPE   ENUM('PLOT', 'EVENT') NOT NULL DEFAULT 'EVENT',
+    CREATED_AT   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UPDATED_AT   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    CONSTRAINT FK_TIMELINE_STORY
+        FOREIGN KEY (STORY_ID) REFERENCES STORIES(STORY_ID)
+        ON DELETE CASCADE,
+
+    CONSTRAINT FK_TIMELINE_USER
+        FOREIGN KEY (USER_ID) REFERENCES USERS(USER_ID)
+        ON DELETE CASCADE
+) ENGINE=INNODB;
+
+
+CREATE INDEX IDX_TIMELINE_STORY_SEQ ON TIMELINE (STORY_ID, SEQUENCE_NO);
+
+-- TIMELINE_CHARACTERS TABLE
+-- Junction table to associate characters with timeline entries
+CREATE TABLE TIMELINE_CHARACTERS (
+    TIMELINE_ID     INT NOT NULL,
+    CHARACTER_ID  INT NOT NULL,
+    STORY_ID      INT NOT NULL,
+
+    PRIMARY KEY (TIMELINE_ID, CHARACTER_ID),
+    FOREIGN KEY (TIMELINE_ID)
+        REFERENCES TIMELINE(TIMELINE_ID)
+        ON DELETE CASCADE,
+
+    FOREIGN KEY (CHARACTER_ID)
+        REFERENCES CHARACTERS(CHARACTER_ID)
+        ON DELETE CASCADE
+) ENGINE=INNODB;
+
+CREATE INDEX IDX_TIMELINE_CHARACTERS_CHARACTER
+    ON TIMELINE_CHARACTERS (CHARACTER_ID);
