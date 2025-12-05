@@ -1,4 +1,5 @@
-<!-- Storyteller Database Landing Page - index.php
+<?php
+/* Storyteller Database Landing Page - index.php
       A welcoming introduction to the Storyteller Database application.
       Provides an overview of features and a call-to-action to register or log in.
 
@@ -9,11 +10,8 @@
       - Revised welcome text to better highlight features and benefits.
       - Updated call-to-action button styling for improved visibility.
       - Added additional context about target users.
-  -->
+*/
 
-
-
-<?php
 session_start();
 ?>
 
@@ -96,4 +94,5 @@ session_start();
   </main>
     
 </body>
+
 </html>
